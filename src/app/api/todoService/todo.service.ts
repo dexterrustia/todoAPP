@@ -16,7 +16,7 @@ export interface Todo {
 
 export class TodoService {
 
-  private SERVER_URL = "http://localhost:3000";
+  private SERVER_URL = "http://localhost:8080";
  
 
 

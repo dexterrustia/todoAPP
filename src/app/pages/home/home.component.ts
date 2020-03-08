@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit, Renderer2 } from '@angular/core'; 
 import { TodoService, Todo } from '../../api/todoService/todo.service'  
 import { FormBuilder,FormGroup,Validators } from '@angular/forms'; 
 import { NgxSpinnerService } from 'ngx-spinner'; 
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   frmTodo: FormGroup;
   todo : Todo;
   todoID : String; 
+ 
 
   constructor(private todoServ : TodoService, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) { 
     this.frmTodo = this.formBuilder.group({ 
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
     this.todoID = ""
   } 
 
-  onDrop(event: CdkDragDrop<string[]>) {
+  onDrop(event: CdkDragDrop<string[]>,col) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data,
         event.previousIndex,
@@ -56,20 +57,20 @@ export class HomeComponent implements OnInit {
         event.container.data,
         event.previousIndex, event.currentIndex);
     }
-    console.log('event :'+ JSON.stringify(event))
-    console.log("data :"+ JSON.stringify(event.container.data))
-    console.log("prev data :"+ JSON.stringify(event.previousContainer.data))
+    console.log('previousIndex :'+ JSON.stringify(event.previousIndex))
+    console.log("currentIndex :"+ JSON.stringify(event.currentIndex))
+    console.log("event :"+ event)
   }
 
   getTodos(){  
     this.todoServ.getTodos().toPromise().then(res =>{
       this.todoList = res
       this.spinner.hide(); 
-      console.log( JSON.stringify(res) )  
+      //console.log( JSON.stringify(this.todoList) )   
     }).catch(err => {
       console.log(err)
     }); 
-  } 
+  }  
 
   saveTodo(obj : Todo){
     //{year: 2020, month: 3, day: 18}
@@ -118,6 +119,7 @@ export class HomeComponent implements OnInit {
     }).catch(err => {
       console.log(err)
     })
+    this.clearScopes()
 
   }
  
