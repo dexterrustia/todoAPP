@@ -1,0 +1,50 @@
+.columnPanel {
+    background: #ebecf0;
+    height: 86vh;
+    border-radius: 15px;
+    overflow-y: auto;
+
+
+    .colHeader {
+        font-size: large;
+        text-align: center;
+        padding: 5px 0;
+        font-weight: 700;
+    }
+    .card {
+        background: white;
+        margin: 7px;
+        padding: 5px;
+        z-index: 1;
+        h5.title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .date{
+            text-align: right;
+        }
+        .controlContainer{
+            float: right;
+            visibility: hidden; 
+            ion-icon {
+                font-size: 16px;
+                margin: 2px;
+            } 
+            ion-icon:hover{
+                box-shadow: 1px 1px 8px #7c7878;
+            }
+        }
+        
+
+    }
+    .card:hover {
+        box-shadow: 1px 1px 5px #7c7878; 
+        .controlContainer{
+            visibility: visible; 
+        }
+    }
+}
+#newTodo{
+    font-size: 25px;
+    margin-bottom: -6px;
+}
