@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {  
     this.spinner.show();
-    this.getTodos();
+    this.getTodos(); 
+    this.spinner.hide(); 
   }
 
   clearScopes(){
@@ -65,7 +66,6 @@ export class HomeComponent implements OnInit {
   getTodos(){  
     this.todoServ.getTodos().toPromise().then(res =>{
       this.todoList = res
-      this.spinner.hide(); 
       //console.log( JSON.stringify(this.todoList) )   
     }).catch(err => {
       console.log(err)
@@ -75,25 +75,25 @@ export class HomeComponent implements OnInit {
   saveTodo(obj : Todo){
     //{year: 2020, month: 3, day: 18}
     console.log(obj)  
-    //this.spinner.show();
+    this.spinner.show();
     obj.dueDate = obj.dueDate["month"]+"-"+obj.dueDate["day"]+"-"+obj.dueDate["year"] 
     if(this.todoID == ""){
       this.todoServ.postTodo(obj).toPromise().then(res => {
         console.log(res)
-        this.getTodos();
       }).catch(err => {
         console.log(err)
       })
     }else{
       this.todoServ.putTodo(this.todoID,obj).toPromise().then(res => {
-        console.log(res)
-        this.getTodos();
+        console.log(res) 
       }).catch(err => {
         console.log(err)
       })
 
-    } 
-    this.clearScopes();
+    }  
+    this.getTodos();
+    this.clearScopes(); 
+    this.spinner.hide(); 
     
   }
   getTodo(obj){
